@@ -83,6 +83,56 @@ with older versions of the specification.
 
 ## Board size and outline
 
+## Backplane-to-board electrical interface
+
+### Connector type and position
+
+### Connector signals
+
+#### Low-power power rail (VBUS-LP)
+
+1. The low-power rail is on the top side of the board on pins B1, B2, B3 and B4. If the low-power
+   rail is used, the board SHOULD contain an ESD protection/transient suppression.
+
+2. Nominal voltage of the low-power rail is 5V. The voltage MAY deviate depending on the circumstances.
+   
+3. A board MAY sink power from the low-power rail. The input range of the board MUST be 4.5V to 5.5V.
+   4.5V is considered an undervoltage and the board sinking power from such low-power rail SHOULD be held
+   in a brown-out reset state. 5.5V is considered an overvoltage. In this case the board MAY cut the power
+   to protect itself in a suitable way. The board SHOULD clamp the low-power rail voltage at 6V or more.
+   The board MUST contain a hotplug controller/e-fuse with a suitable current limiting including
+   inrush current limiting.
+
+4. A board MAY supply power to the low power rail. If so:
+- it MUST provide a power-or capability (a diode, ideal-diode controller with a transistor, etc.)
+- the supplied power MUST be limited to a 4A corrent draw at 5V
+- the supplied voltage must be in the range 4.8V to 5.2V
+
+#### Signal ground (GND)
+
+Signal ground is connected to the chassis at multiple points where connectors protrude the chassis. If a ground
+loops are to be avoided on a board, isolated front panel connectors MUST be used.
+
+Signal ground is available on pins A1, A2, A3, A4, A5 and B5.
+
+> Chassis, front panel, front panel connectors, etc. should be defined first.
+
+#### I2C signals (SCL, SDA)
+
+An I2C bus is available for low-speed (100kbit/s) communication over the backplane. It contains SCL (B6), SDA (B7) and
+an accompanying GND (B8).
+
+#### CAN 2.0b/CAN FD signals
+
+A CAN/CAN-FD bus is available for medium-speed (1mbit/s) communication over the backplane. It contains
+CANH (B10), CANL (B11) and GND (B9).
+
+#### Unused connections
+
+All connections not listed in the previous sections MUST NOT be connected (ie. they MUST be left floating).
+They are reseved for future use.
+
+
 ## Acknowledgements
 
 ## Contributing
